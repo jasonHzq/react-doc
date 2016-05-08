@@ -4,6 +4,12 @@ when you write a API guide to people, why not let people try themself !
 
 ![](./gif/preview.gif)
 
+## install
+
+```
+npm i --save react-doc
+```
+
 ## usage
 
 ```
