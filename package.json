@@ -1,8 +1,19 @@
 {
   "name": "react-doc",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "react doc",
+  "keywords": [
+    "react",
+    "doc",
+    "ace",
+    "babel"
+  ],
+  "main": "src/index.js",
+  "files": [
+    "*.md",
+    "demo",
+    "src"
+  ],
   "scripts": {
     "demo": "UV_THREADPOOL_SIZE=100 webpack-dev-server  --progress --port 4001  --colors --content-base demo --hot --inline --config demo/webpack.config.js"
   },
