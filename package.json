@@ -40,7 +40,6 @@
   "dependencies": {
     "babel-standalone": "6.7.7",
     "brace": "^0.8.0",
-    "lodash": "^4.11.2",
     "react": "^15.0.2",
     "react-ace": "^3.4.1"
   }

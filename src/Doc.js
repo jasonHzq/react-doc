@@ -4,14 +4,23 @@
  */
 
 import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
 import { transform } from 'babel-standalone';
 import AceEditor from 'react-ace';
-import brace from 'brace';
-import _ from 'lodash';
 
 import 'brace/mode/javascript';
 import 'brace/theme/xcode';
+
+const debounce = (func, wait) => {
+  let timer = null;
+
+  return (...args) => {
+    timer && clearTimeout(timer);
+
+    timer = setTimeout(() => {
+      func(...args);
+    }, wait);
+  };
+};
 
 class Doc extends Component {
   static propTypes = {
@@ -37,7 +46,7 @@ class Doc extends Component {
       errorMsg: '',
     };
 
-    this.handleCompile = _.debounce(this.handleCompile.bind(this), debounceWaitTime);
+    this.handleCompile = debounce(this.handleCompile.bind(this), debounceWaitTime);
     this.mountedPreview = this.mountedPreview.bind(this);
     this.renderPreview = this.renderPreview.bind(this);
   }
