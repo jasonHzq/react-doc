@@ -4,6 +4,8 @@ when you write a API guide to people, why not let people try themself !
 
 ![](./gif/preview.gif)
 
+[demo](http://jasonHzq.github.io)
+
 ## install
 
 ```
