@@ -16,6 +16,7 @@
   ],
   "scripts": {
     "build": "rimraf lib && babel ./src -d lib",
+    "demo-build": "webpack --config demo/webpack.config.production.js",
     "demo": "UV_THREADPOOL_SIZE=100 webpack-dev-server  --progress --port 4001  --colors --content-base demo --hot --inline --config demo/webpack.config.js"
   },
   "repository": {
