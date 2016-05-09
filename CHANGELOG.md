@@ -1,3 +1,7 @@
+### 1.0.3 / 2016-05-09
+======================
+- chore(package.json): add lib to files
+
 ### 1.0.2 / 2016-05-09
 ======================
 - chore: change package.json main
