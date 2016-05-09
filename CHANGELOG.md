@@ -1,3 +1,7 @@
+### 1.0.4 / 2016-05-09
+======================
+- fix(Doc): fix default style
+
 ### 1.0.3 / 2016-05-09
 ======================
 - chore(package.json): add lib to files
