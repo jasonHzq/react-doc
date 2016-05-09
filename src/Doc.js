@@ -113,10 +113,9 @@ class Doc extends Component {
           value={this.state.code}
           mode="javascript"
           theme="xcode"
-          width="600px"
+          width="650px"
           tabSize={2}
-          enableLiveAutocompletion
-          enableBasicAutocompletion
+          showPrintMargin={false}
           showGutter={showGutter}
           setOptions={{
             useWorker: false,
@@ -141,12 +140,10 @@ class Doc extends Component {
           }
 
           .doc-wrapper .ace_editor {
-            float: left;
+            margin: 10px auto;
           }
 
           .doc-wrapper .doc-preview {
-            width: 280px;
-            float: right;
             padding: 15px 20px;
             background-color: white;
           }

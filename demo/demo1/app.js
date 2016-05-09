@@ -51,11 +51,21 @@ class Demo1 extends Component {
     return (
       <div>
         <div className="header">demo1</div>
-        <Doc code={code} ctx={{ css }} className="demo-doc" />
+        <Doc code={code} ctx={{ css }} height="600px" className="demo-doc" />
         <style>
         {`
           .demo-doc {
             margin-top: 20px;
+          }
+
+          .demo-doc .ace_editor {
+            float: left;
+            margin-top: 0px;
+          }
+
+          .demo-doc .doc-preview {
+            width: 280px;
+            float: right;
           }
         `}
         </style>
