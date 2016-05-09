@@ -13,7 +13,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'react-doc': path.join(__dirname, '..', 'src/index.js'),
+      'react-doc': path.join(__dirname, '..', 'lib/index.js'),
     },
   },
   webpackServer: {
@@ -26,8 +26,6 @@ module.exports = {
         loader: 'babel-loader',
         include: [
           __dirname,
-          path.join(__dirname, '..', 'src'),
-          path.join(__dirname, '..', 'node_modules'),
         ],
         exclude: [
           path.join(__dirname, '..', 'node_modules/babel-standalone'),

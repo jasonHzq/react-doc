@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Doc from 'react-doc';
 
-const backCode = `
-const css = \`
+const css = `
   .item {
     margin-top: 20px;
   }
-\`;
 `;
 
 const code = `
@@ -53,7 +51,7 @@ class Demo1 extends Component {
     return (
       <div>
         <div className="header">demo1</div>
-        <Doc code={code} backCode={backCode} className="demo-doc" />
+        <Doc code={code} ctx={{ css }} className="demo-doc" />
         <style>
         {`
           .demo-doc {

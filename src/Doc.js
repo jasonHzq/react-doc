@@ -24,10 +24,10 @@ const debounce = (func, wait) => {
 
 class Doc extends Component {
   static propTypes = {
-    backCode: PropTypes.string,
     code: PropTypes.string,
     debounceWaitTime: PropTypes.number,
     showGutter: PropTypes.bool,
+    ctx: PropTypes.object,
   };
 
   static defaultProps = {
@@ -35,6 +35,7 @@ class Doc extends Component {
     showGutter: true,
     code: '',
     backCode: '',
+    ctx: {},
   };
 
   constructor(props, ctx) {
@@ -52,9 +53,9 @@ class Doc extends Component {
   }
 
   componentDidMount() {
-    const { code, backCode } = this.props;
+    const { code } = this.props;
 
-    this.handleCompile(code, backCode);
+    this.handleCompile(code);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -66,18 +67,21 @@ class Doc extends Component {
   }
 
   handleCompile(code) {
-    const { backCode } = this.props;
+    const { ctx } = this.props;
 
     this.setState({
       code,
     });
 
     try {
-      const parsedCode = transform(backCode + code, {
+      const parsedCode = transform(code, {
         presets: ['es2015', 'react', 'stage-0'],
       }).code;
 
-      new Function('React', 'render', parsedCode)(React, this.renderPreview);
+      const keys = Object.keys(ctx);
+      const vals = keys.map(key => ctx[key]);
+
+      new Function('React', 'render', ...keys, parsedCode)(React, this.renderPreview, ...vals);
 
       this.setState({
         errorMsg: '',
