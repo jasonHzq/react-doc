@@ -13,6 +13,7 @@
     "*.md",
     "demo",
     "src",
+    "gif",
     "lib"
   ],
   "scripts": {
