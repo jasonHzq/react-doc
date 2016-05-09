@@ -12,7 +12,8 @@
   "files": [
     "*.md",
     "demo",
-    "src"
+    "src",
+    "lib"
   ],
   "scripts": {
     "build": "rimraf lib && babel ./src -d lib",
