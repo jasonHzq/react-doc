@@ -6,10 +6,10 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { transform } from 'babel-standalone';
-import AceEditor from 'react-ace';
+import AceEditor from 'ch-react-ace';
 
-import 'brace/mode/javascript';
-import 'brace/theme/xcode';
+import 'ch-brace/mode/javascript';
+import 'ch-brace/theme/xcode';
 
 const debounce = (func, wait) => {
   let timer = null;

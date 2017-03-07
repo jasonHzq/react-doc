@@ -1,9 +1,9 @@
 import Sass from 'sass.js/dist/sass.js';
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import AceEditor from 'react-ace';
-import 'brace/mode/scss';
-import 'brace/theme/tomorrow';
+import AceEditor from 'ch-react-ace';
+import 'ch-brace/mode/scss';
+import 'ch-brace/theme/tomorrow';
 
 Sass.setWorkerUrl('http://sass.js.org/js/sass.js/sass.worker.js');
 const sass = new Sass();
