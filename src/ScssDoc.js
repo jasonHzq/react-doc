@@ -1,15 +1,12 @@
-/*
- * @author jasonHzq
- * @date 2016.05.07
- */
-
+import Sass from 'sass.js/dist/sass.js';
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import { transform } from 'babel-standalone';
 import AceEditor from 'react-ace';
+import 'brace/mode/scss';
+import 'brace/theme/tomorrow';
 
-import 'brace/mode/javascript';
-import 'brace/theme/xcode';
+Sass.setWorkerUrl('http://sass.js.org/js/sass.js/sass.worker.js');
+const sass = new Sass();
 
 const debounce = (func, wait) => {
   let timer = null;
@@ -22,10 +19,6 @@ const debounce = (func, wait) => {
     }, wait);
   };
 };
-
-function defaultView() {
-  return <div></div>;
-}
 
 const STYLE = `
 .doc-wrapper .ace_editor {
@@ -42,16 +35,12 @@ class Doc extends Component {
     code: PropTypes.string,
     debounceWaitTime: PropTypes.number,
     showGutter: PropTypes.bool,
-    ctx: PropTypes.object,
   };
 
   static defaultProps = {
     debounceWaitTime: 500,
     showGutter: true,
     code: '',
-    backCode: '',
-    ctx: {},
-    plugins: [],
   };
 
   constructor(props, ctx) {
@@ -78,7 +67,6 @@ class Doc extends Component {
       this.setState({
         code: nextProps.code,
       });
-      this.handleCompile(nextProps.code);
     }
   }
 
@@ -89,25 +77,26 @@ class Doc extends Component {
   }
 
   handleCompile(code) {
-    const { ctx, plugins } = this.props;
-
     this.setState({
       code,
     });
 
     try {
-      const parsedCode = transform(code, {
-        presets: ['es2015', 'react', 'stage-0'],
-        plugins,
-      }).code;
+      sass.compile(code, resule => {
+        const parsedCode = resule.text;
+        const errorMsg = resule.formatted;
 
-      const keys = Object.keys(ctx);
-      const vals = keys.map(key => ctx[key]);
+        if (errorMsg) {
+          this.setState({
+            errorMsg,
+          });
+        } else {
+          this.setState({
+            errorMsg: '',
+          });
 
-      new Function('render', ...keys, parsedCode)(this.renderPreview, ...vals);
-
-      this.setState({
-        errorMsg: '',
+          this.renderPreview(parsedCode);
+        }
       });
     } catch (e) {
       this.setState({
@@ -118,24 +107,31 @@ class Doc extends Component {
   }
 
   renderPreview(preview) {
-    if (this.props.previewContainer && preview) {
-      ReactDOM.render(this.props.getPreview(preview), this.props.previewContainer);
+    const previewDom = (
+      <style>
+        {preview}
+      </style>
+    );
+
+    if (this.props.previewContainer) {
+      ReactDOM.render(previewDom, this.props.previewContainer);
     }
-    if (this.props.reportElement && preview) {
-      this.props.reportElement(preview);
+
+    if (this.props.reportElement) {
+      this.props.reportElement(preview, previewDom);
     }
   }
 
   render() {
-    const { code, backCode, className, showGutter, ...rest } = this.props;
+    const { code, className, showGutter, ...rest } = this.props;
     const { errorMsg } = this.state;
 
     return (
       <div className={`doc-wrapper ${className}`}>
         <AceEditor
           value={this.state.code}
-          mode="javascript"
-          theme="xcode"
+          mode="scss"
+          theme="tomorrow"
           width="650px"
           tabSize={2}
           showPrintMargin={false}

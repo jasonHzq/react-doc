@@ -17,7 +17,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "rimraf lib && babel ./src -d lib",
+    "build": "rimraf lib && babel ./src -d lib -w",
     "demo-build": "webpack --config demo/webpack.config.production.js",
     "demo": "UV_THREADPOOL_SIZE=100 webpack-dev-server  --progress --port 4001  --colors --content-base demo --hot --inline --config demo/webpack.config.js"
   },
@@ -45,8 +45,8 @@
   },
   "dependencies": {
     "babel-standalone": "6.7.7",
-    "brace": "^0.8.0",
-    "react": "^15.0.2",
-    "react-ace": "^3.4.1"
+    "ch-brace": "^0.1.0",
+    "ch-react-ace": "^0.1.0",
+    "react": "^15.0.2"
   }
 }
