@@ -5,8 +5,24 @@ import AceEditor from 'ch-react-ace';
 import 'ch-brace/mode/scss';
 import 'ch-brace/theme/tomorrow';
 
-Sass.setWorkerUrl('http://sass.js.org/js/sass.js/sass.worker.js');
-const sass = new Sass();
+let sass;
+
+function getSass() {
+  if (!sass) {
+    return fetch('https://cdnjs.cloudflare.com/ajax/libs/sass.js/0.10.3/sass.worker.min.js')
+      .then(data => data.text())
+      .then(content => {
+        const bb = new Blob([content], {
+          type: 'text/javascript',
+        });
+
+        sass = new Sass(window.URL.createObjectURL(bb));
+        return sass;
+      });
+  }
+
+  return Promise.resolve(sass);
+}
 
 const debounce = (func, wait) => {
   let timer = null;
@@ -82,21 +98,23 @@ class Doc extends Component {
     });
 
     try {
-      sass.compile(code, resule => {
-        const parsedCode = resule.text;
-        const errorMsg = resule.formatted;
+      getSass().then(sass => {
+        sass.compile(code, resule => {
+          const parsedCode = resule.text;
+          const errorMsg = resule.formatted;
 
-        if (errorMsg) {
-          this.setState({
-            errorMsg,
-          });
-        } else {
-          this.setState({
-            errorMsg: '',
-          });
+          if (errorMsg) {
+            this.setState({
+              errorMsg,
+            });
+          } else {
+            this.setState({
+              errorMsg: '',
+            });
 
-          this.renderPreview(parsedCode);
-        }
+            this.renderPreview(parsedCode);
+          }
+        });
       });
     } catch (e) {
       this.setState({
@@ -134,6 +152,7 @@ class Doc extends Component {
           theme="tomorrow"
           width="650px"
           tabSize={2}
+          name="ace-scss-editor"
           showPrintMargin={false}
           showGutter={showGutter}
           setOptions={{
