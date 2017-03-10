@@ -43,6 +43,7 @@ class Doc extends Component {
     debounceWaitTime: PropTypes.number,
     showGutter: PropTypes.bool,
     ctx: PropTypes.object,
+    onChange: PropTypes.func,
   };
 
   static defaultProps = {
@@ -118,6 +119,13 @@ class Doc extends Component {
   }
 
   renderPreview(preview) {
+    const { code } = this.state;
+    const { onChange } = this.props;
+
+    if (onChange) {
+      onChange(code);
+    }
+
     if (this.props.previewContainer && preview) {
       ReactDOM.render(this.props.getPreview(preview), this.props.previewContainer);
     }
