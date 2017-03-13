@@ -95,6 +95,10 @@ class JsonDoc extends Component {
     }
   }
 
+  formate(code) {
+    return JSON.stringify(code || this.state.code, '', 2);
+  }
+
   render() {
     const { code, className, showGutter, onChange, name, ...rest } = this.props;
     const { errorMsg } = this.state;
