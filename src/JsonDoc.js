@@ -27,8 +27,6 @@ const STYLE = `
 }
 `;
 
-console.log('I caleed');
-
 class JsonDoc extends Component {
   static propTypes = {
     code: PropTypes.string,
@@ -82,7 +80,6 @@ class JsonDoc extends Component {
     });
 
     try {
-      debugger;
       jsonlint.parse(code);
 
       this.setState({
@@ -90,7 +87,6 @@ class JsonDoc extends Component {
       });
       this.props.onChange(code);
     } catch (e) {
-      debugger;
       this.setState({
         errorMsg: e.message || e.toString(),
       });
