@@ -125,4 +125,4 @@ class JsonDoc extends Component {
   }
 }
 
-export default Doc;
+export default JsonDoc;
