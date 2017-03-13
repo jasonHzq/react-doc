@@ -27,17 +27,21 @@ const STYLE = `
 }
 `;
 
+console.log('I caleed');
+
 class JsonDoc extends Component {
   static propTypes = {
     code: PropTypes.string,
     debounceWaitTime: PropTypes.number,
     showGutter: PropTypes.bool,
+    onChange: PropTypes.func,
   };
 
   static defaultProps = {
-    debounceWaitTime: 500,
+    debounceWaitTime: 50,
     showGutter: true,
     code: '',
+    onChange: () => {},
   };
 
   constructor(props, ctx) {
@@ -50,7 +54,6 @@ class JsonDoc extends Component {
     };
 
     this.handleCompile = debounce(this.handleCompile.bind(this), debounceWaitTime);
-    this.renderPreview = this.renderPreview.bind(this);
   }
 
   componentDidMount() {
@@ -79,17 +82,23 @@ class JsonDoc extends Component {
     });
 
     try {
+      debugger;
       jsonlint.parse(code);
+
+      this.setState({
+        errorMsg: '',
+      });
+      this.props.onChange(code);
     } catch (e) {
+      debugger;
       this.setState({
         errorMsg: e.message || e.toString(),
       });
-      console.log(e.stack);
     }
   }
 
   render() {
-    const { code, className, showGutter, ...rest } = this.props;
+    const { code, className, showGutter, onChange, ...rest } = this.props;
     const { errorMsg } = this.state;
 
     return (

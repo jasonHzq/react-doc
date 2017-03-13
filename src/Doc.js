@@ -135,7 +135,7 @@ class Doc extends Component {
   }
 
   render() {
-    const { code, backCode, className, showGutter, ...rest } = this.props;
+    const { code, backCode, className, showGutter, onChange, ...rest } = this.props;
     const { errorMsg } = this.state;
 
     return (
