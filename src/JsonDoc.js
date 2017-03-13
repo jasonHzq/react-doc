@@ -33,6 +33,7 @@ class JsonDoc extends Component {
     debounceWaitTime: PropTypes.number,
     showGutter: PropTypes.bool,
     onChange: PropTypes.func,
+    name: PropTypes.string,
   };
 
   static defaultProps = {
@@ -40,6 +41,7 @@ class JsonDoc extends Component {
     showGutter: true,
     code: '',
     onChange: () => {},
+    name: 'ace-json-editor',
   };
 
   constructor(props, ctx) {
@@ -94,7 +96,7 @@ class JsonDoc extends Component {
   }
 
   render() {
-    const { code, className, showGutter, onChange, ...rest } = this.props;
+    const { code, className, showGutter, onChange, name, ...rest } = this.props;
     const { errorMsg } = this.state;
 
     return (
@@ -105,7 +107,7 @@ class JsonDoc extends Component {
           theme="tomorrow"
           width="650px"
           tabSize={2}
-          name="ace-json-editor"
+          name={name}
           showPrintMargin={false}
           showGutter={showGutter}
           setOptions={{

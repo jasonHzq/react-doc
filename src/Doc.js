@@ -44,6 +44,7 @@ class Doc extends Component {
     showGutter: PropTypes.bool,
     ctx: PropTypes.object,
     onChange: PropTypes.func,
+    name: PropTypes.string,
   };
 
   static defaultProps = {
@@ -53,6 +54,7 @@ class Doc extends Component {
     backCode: '',
     ctx: {},
     plugins: [],
+    name: 'ace-js-editor',
   };
 
   constructor(props, ctx) {
@@ -135,7 +137,7 @@ class Doc extends Component {
   }
 
   render() {
-    const { code, backCode, className, showGutter, onChange, ...rest } = this.props;
+    const { code, backCode, className, showGutter, onChange, name, ...rest } = this.props;
     const { errorMsg } = this.state;
 
     return (
@@ -146,6 +148,7 @@ class Doc extends Component {
           theme="xcode"
           width="650px"
           tabSize={2}
+          name={name}
           showPrintMargin={false}
           showGutter={showGutter}
           setOptions={{

@@ -51,12 +51,14 @@ class Doc extends Component {
     code: PropTypes.string,
     debounceWaitTime: PropTypes.number,
     showGutter: PropTypes.bool,
+    name: PropTypes.string,
   };
 
   static defaultProps = {
     debounceWaitTime: 500,
     showGutter: true,
     code: '',
+    name: 'ace-scss-editor',
   };
 
   constructor(props, ctx) {
@@ -141,7 +143,7 @@ class Doc extends Component {
   }
 
   render() {
-    const { code, className, showGutter, onChange, ...rest } = this.props;
+    const { code, className, showGutter, onChange, name, ...rest } = this.props;
     const { errorMsg } = this.state;
 
     return (
@@ -152,7 +154,7 @@ class Doc extends Component {
           theme="tomorrow"
           width="650px"
           tabSize={2}
-          name="ace-scss-editor"
+          name={name}
           showPrintMargin={false}
           showGutter={showGutter}
           setOptions={{
