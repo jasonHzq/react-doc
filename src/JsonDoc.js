@@ -53,21 +53,13 @@ class JsonDoc extends Component {
       errorMsg: '',
     };
 
-    this.handleCompile = debounce(this.handleCompile.bind(this), debounceWaitTime);
+    this.handleCompile = this.handleCompile.bind(this);
   }
 
   componentDidMount() {
     const { code } = this.props;
 
     this.handleCompile(code);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.code !== this.props.code && nextProps.code !== this.state.code) {
-      this.setState({
-        code: nextProps.code,
-      });
-    }
   }
 
   updateCode(updator) {
